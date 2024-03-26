@@ -11,11 +11,13 @@ periodControlCoordsFinamTrade := {x: 460, y: 180}
 periodCellFinamTrade := {width: 45, height: 30}
 deltaHeight := 50
 h1CellFinamTrade := {row: 2, column: 6}
+h4CellFinamTrade := {row: 3, column: 3}
 dCellFinamTrade := {row: 4, column: 1}
-periodsCoordsFinamTrade := {h1: {x: periodControlCoordsFinamTrade.x + 280, y: periodControlCoordsFinamTrade.y + 90}
-    , h4: {x: 680, y: 425}
+wCellFinamTrade := {row: 4, column: 2}
+periodsCoordsFinamTrade := {h1: {x: getX(h1CellFinamTrade), y: getY(h1CellFinamTrade)}
+    , h4: {x: getX(h4CellFinamTrade), y: getY(h4CellFinamTrade)}
     , d:  {x: getX(dCellFinamTrade), y: getY(dCellFinamTrade)}
-    , w:  {x: 610, y: 475}}
+    , w:  {x: getX(wCellFinamTrade), y: getY(wCellFinamTrade)}}
 deltaFinamTrade := 40
 mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaFinamTrade
     , y: periodControlCoordsFinamTrade.y - deltaFinamTrade}
@@ -30,16 +32,23 @@ periodsCoordsMetaTrader := {h1: {x: 540, y: 150}
     , w:  {x: 670, y: 150}}
 mouseMoveCoordsMetaTrader := {x: 430, y: 50}
 
-#debug := true
-debug := false
+debug := true
+;debug := false
+
+;MsgBox, % "h1.x = " periodsCoordsFinamTrade.h1.x " h1.y = " periodsCoordsFinamTrade.h1.y
+;MsgBox, % "h4.x = " periodsCoordsFinamTrade.h4.x " h4.y = " periodsCoordsFinamTrade.h4.y
+;MsgBox, % "d.x = " periodsCoordsFinamTrade.d.x " d.y = " periodsCoordsFinamTrade.d.y
+;MsgBox, % "w.x = " periodsCoordsFinamTrade.w.x " w.y = " periodsCoordsFinamTrade.w.y
 
 getX(cell)
 {
+    global
     return periodControlCoordsFinamTrade.x + periodCellFinamTrade.width * (cell.column - 1)
 }
 
 getY(cell)
 {
+    global
     return periodControlCoordsFinamTrade.y + deltaHeight + periodCellFinamTrade.height * (cell.row - 1)
 }
 
@@ -221,6 +230,7 @@ class Trader
 
     clickPeriodControl()
     {
+        global
         if (!this.shouldClickPeriodControl)
         {
             return
@@ -236,6 +246,7 @@ class Trader
 
     clickPeriod()
     {
+        global
         x := this.periodsCoords[this.periods[this.periodIndex]].x
         y := this.periodsCoords[this.periods[this.periodIndex]].y
         if (debug)
