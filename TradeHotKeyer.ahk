@@ -1,28 +1,41 @@
 #NoEnv
 
-periods_h1_d      := ["h1", "d"]
-periods_h1_h4_d_w := ["h1", "h4", "d", "w"]
-
+; FinamTrade
 finamTradeWinTitle := "FinamTrade"
-metaTraderWinTitle := "ahk_class " + "MetaQuotes::MetaTrader::4.00"
+
+periods_h1_d            := ["h1", "d"]
+periods_h1_h4_d_w       := ["h1", "h4", "d", "w"]
+periods_h1_h4_d_w_mn_qr := ["h1", "h4", "d", "w", "mn", "qr"]
 
 periodIndexFinamTrade := 0
 periodControlCoordsFinamTrade := {x: 460, y: 180}
-periodCellFinamTrade := {width: 45, height: 30}
-deltaHeight := 50
-h1CellFinamTrade := {row: 2, column: 6}
-h4CellFinamTrade := {row: 3, column: 3}
-dCellFinamTrade := {row: 4, column: 1}
-wCellFinamTrade := {row: 4, column: 2}
-periodsCoordsFinamTrade := {h1: {x: getX(h1CellFinamTrade), y: getY(h1CellFinamTrade)}
-    , h4: {x: getX(h4CellFinamTrade), y: getY(h4CellFinamTrade)}
-    , d:  {x: getX(dCellFinamTrade), y: getY(dCellFinamTrade)}
-    , w:  {x: getX(wCellFinamTrade), y: getY(wCellFinamTrade)}}
+periodCellFinamTrade := {width: 55, height: 35}
+deltaHeight := 55
+periodsHoursFirstCellDeltaFinamTrade := {x: 5, y: 145}
+periodsHoursCellsFinamTrade := {h1: {row: 1, column: 1}
+    , h4: {row: 1, column: 4}}
+periodsDaysFirstCellDeltaFinamTrade := {x: 5, y: 235}
+periodsDaysCellsFinamTrade := {d: {row: 1, column: 1}
+    , w: {row: 1, column: 2}
+    , mn: {row: 1, column: 3}
+    , qr: {row: 1, column: 4}}
+periodsCoordsFinamTrade := {h1: {x: getX(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h1), y: getY(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h1)}
+    , h4: {x: getX(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h4), y: getY(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h4)}
+    , d:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.d), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.d)}
+    , w:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.w), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.w)}
+    , mn:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.mn), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.mn)}
+    , qr:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.qr), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.qr)}}
+
 deltaFinamTrade := 40
 mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaFinamTrade
     , y: periodControlCoordsFinamTrade.y - deltaFinamTrade}
-scrollInstrumentsCoordsUpFinamTrade := {x: 472, y: 220}
-scrollInstrumentsCoordsDownFinamTrade := {x: 472, y: 1100}
+deltaX := 45
+height := 945
+scrollInstrumentsCoordsUpFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaX, y: periodControlCoordsFinamTrade.y}
+scrollInstrumentsCoordsDownFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaX, y: periodControlCoordsFinamTrade.y + height}
+
+; MetaTrader
+metaTraderWinTitle := "ahk_class " + "MetaQuotes::MetaTrader::4.00"
 
 periodIndexMetaTrader := 0
 periodControlCoordsMetaTrader := {x: 200, y: 50}
@@ -32,29 +45,56 @@ periodsCoordsMetaTrader := {h1: {x: 540, y: 150}
     , w:  {x: 670, y: 150}}
 mouseMoveCoordsMetaTrader := {x: 430, y: 50}
 
-debug := true
-;debug := false
+;debug := true
+debug := false
+pause := 300
 
-;MsgBox, % "h1.x = " periodsCoordsFinamTrade.h1.x " h1.y = " periodsCoordsFinamTrade.h1.y
-;MsgBox, % "h4.x = " periodsCoordsFinamTrade.h4.x " h4.y = " periodsCoordsFinamTrade.h4.y
-;MsgBox, % "d.x = " periodsCoordsFinamTrade.d.x " d.y = " periodsCoordsFinamTrade.d.y
-;MsgBox, % "w.x = " periodsCoordsFinamTrade.w.x " w.y = " periodsCoordsFinamTrade.w.y
+logCoords(periods_h1_h4_d_w_mn_qr[1], periodsCoordsFinamTrade.h1)
+logCoords(periods_h1_h4_d_w_mn_qr[2], periodsCoordsFinamTrade.h4)
+logCoords(periods_h1_h4_d_w_mn_qr[3], periodsCoordsFinamTrade.d)
+logCoords(periods_h1_h4_d_w_mn_qr[4], periodsCoordsFinamTrade.w)
+logCoords(periods_h1_h4_d_w_mn_qr[5], periodsCoordsFinamTrade.mn)
+logCoords(periods_h1_h4_d_w_mn_qr[6], periodsCoordsFinamTrade.qr)
 
-getX(cell)
+logCoords(name, period)
 {
     global
-    return periodControlCoordsFinamTrade.x + periodCellFinamTrade.width * (cell.column - 1)
+    if (debug)
+    {
+        x :=  period.x
+        y :=  period.y
+        FileAppend, %name%.x = %x% %name%.y = %y%`n, C:\Users\Administrator\Documents\debug.log
+    }
 }
 
-getY(cell)
+getX(firstCellDelta, cell)
 {
     global
-    return periodControlCoordsFinamTrade.y + deltaHeight + periodCellFinamTrade.height * (cell.row - 1)
+    x := periodControlCoordsFinamTrade.x + firstCellDelta.x + periodCellFinamTrade.width * (cell.column - 1)
+    return x
+}
+
+getY(firstCellDelta, cell)
+{
+    global
+    y := periodControlCoordsFinamTrade.y + firstCellDelta.y + deltaHeight + periodCellFinamTrade.height * (cell.row - 1)
+    return y
 }
 
 #If WinActive(finamTradeWinTitle)
 
-^Up::
+Up::
+x::
+SendInput !{Up}
+return
+
+Down::
+z::
+SendInput !{Down}
+return
+
+w::
+^!Up::
 SetSystemCursor()
     x := scrollInstrumentsCoordsUpFinamTrade.x
     y := scrollInstrumentsCoordsUpFinamTrade.y
@@ -62,7 +102,8 @@ SetSystemCursor()
 RestoreCursors()
 return
 
-^Down::
+q::
+^!Down::
 SetSystemCursor()
     x := scrollInstrumentsCoordsDownFinamTrade.x
     y := scrollInstrumentsCoordsDownFinamTrade.y
@@ -72,32 +113,50 @@ return
 
 #If WinExist(finamTradeWinTitle)
 
+1::
 !1::
     WinActivate
     choosePeriod(1)
 return
 
+2::
 !2::
     WinActivate
     choosePeriod(2)
 return
 
+3::
 !3::
     WinActivate
     choosePeriod(3)
 return
 
+4::
 !4::
     WinActivate
     choosePeriod(4)
 return
 
+5::
+!5::
+    WinActivate
+    choosePeriod(5)
+return
+
+6::
+!6::
+    WinActivate
+    choosePeriod(6)
+return
+
+Left::
 !Left::
     WinActivate
     trader := new FinamTrade(periodIndexFinamTrade, periods_h1_d, false)
     periodIndexFinamTrade := trader.changePeriod()
 return
 
+Right::
 !Right::
     WinActivate
     trader := new FinamTrade(periodIndexFinamTrade, periods_h1_d, true)
@@ -133,7 +192,7 @@ choosePeriod(periodIndex)
     global
     if (WinActive(finamTradeWinTitle))
     {
-        trader := new FinamTrade(periodIndex, periods_h1_h4_d_w, true)
+        trader := new FinamTrade(periodIndex, periods_h1_h4_d_w_mn_qr, true)
         periodIndexFinamTrade := trader.choosePeriod()
     }
     else if (WinActive(metaTraderWinTitle))
@@ -171,31 +230,25 @@ class Trader
 
     choosePeriod()
     {
-        if (debug)
+        global
+        if (!debug)
         {
             showCursor(false)
         }
         this.clickPeriodControl()
         this.clickPeriod()
-        this.moveMouse()
+        if (!debug)
+        {
+            this.moveMouse()
+        }
         showCursor(true)
         return this.periodIndex
     }
 
     changePeriod()
     {
-        if (debug)
-        {
-            showCursor(false)
-        }
-;       SetSystemCursor()
         this.changePeriodIndex()
-        this.clickPeriodControl()
-        this.clickPeriod()
-        this.moveMouse()
-        showCursor(true)
-;       RestoreCursors()
-        return this.periodIndex
+        return this.choosePeriod()
     }
 
     changePeriodIndex()
@@ -242,6 +295,7 @@ class Trader
             MouseMove, x, y
         }
         Click %x% %y%
+        Sleep pause
     }
 
     clickPeriod()
@@ -253,7 +307,10 @@ class Trader
         {
             MouseMove, x, y
         }
-        Click %x% %y%
+        if (!debug)
+        {
+            Click %x% %y%
+        }
     }
 
     moveMouse()
