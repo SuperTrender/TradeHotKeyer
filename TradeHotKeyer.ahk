@@ -7,16 +7,20 @@ finamTradeWinTitle := "FinamTrade"
 metaTraderWinTitle := "ahk_class " + "MetaQuotes::MetaTrader::4.00"
 
 periodIndexFinamTrade := 0
-periodControlCoordsFinamTrade := {x: 580, y: 270}
-periodsCoordsFinamTrade := {h1: {x: 970, y: 400}
-    , h4: {x: 750, y: 450}
-    , d:  {x: 590, y: 500}
-    , w:  {x: 660, y: 500}}
+periodControlCoordsFinamTrade := {x: 460, y: 180}
+periodCellFinamTrade := {width: 45, height: 30}
+deltaHeight := 50
+h1CellFinamTrade := {row: 2, column: 6}
+dCellFinamTrade := {row: 4, column: 1}
+periodsCoordsFinamTrade := {h1: {x: periodControlCoordsFinamTrade.x + 280, y: periodControlCoordsFinamTrade.y + 90}
+    , h4: {x: 680, y: 425}
+    , d:  {x: getX(dCellFinamTrade), y: getY(dCellFinamTrade)}
+    , w:  {x: 610, y: 475}}
 deltaFinamTrade := 40
 mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaFinamTrade
     , y: periodControlCoordsFinamTrade.y - deltaFinamTrade}
-scrollInstrumentsCoordsUpFinamTrade := {x: 520, y: 250}
-scrollInstrumentsCoordsDownFinamTrade := {x: 520, y: 1100}
+scrollInstrumentsCoordsUpFinamTrade := {x: 472, y: 220}
+scrollInstrumentsCoordsDownFinamTrade := {x: 472, y: 1100}
 
 periodIndexMetaTrader := 0
 periodControlCoordsMetaTrader := {x: 200, y: 50}
@@ -25,6 +29,19 @@ periodsCoordsMetaTrader := {h1: {x: 540, y: 150}
     , d:  {x: 630, y: 150}
     , w:  {x: 670, y: 150}}
 mouseMoveCoordsMetaTrader := {x: 430, y: 50}
+
+#debug := true
+debug := false
+
+getX(cell)
+{
+    return periodControlCoordsFinamTrade.x + periodCellFinamTrade.width * (cell.column - 1)
+}
+
+getY(cell)
+{
+    return periodControlCoordsFinamTrade.y + deltaHeight + periodCellFinamTrade.height * (cell.row - 1)
+}
 
 #If WinActive(finamTradeWinTitle)
 
@@ -145,7 +162,10 @@ class Trader
 
     choosePeriod()
     {
-        showCursor(false)
+        if (debug)
+        {
+            showCursor(false)
+        }
         this.clickPeriodControl()
         this.clickPeriod()
         this.moveMouse()
@@ -155,7 +175,10 @@ class Trader
 
     changePeriod()
     {
-        showCursor(false)
+        if (debug)
+        {
+            showCursor(false)
+        }
 ;       SetSystemCursor()
         this.changePeriodIndex()
         this.clickPeriodControl()
@@ -204,6 +227,10 @@ class Trader
         }
         x := this.periodControlCoords.x
         y := this.periodControlCoords.y
+        if (debug)
+        {
+            MouseMove, x, y
+        }
         Click %x% %y%
     }
 
@@ -211,6 +238,10 @@ class Trader
     {
         x := this.periodsCoords[this.periods[this.periodIndex]].x
         y := this.periodsCoords[this.periods[this.periodIndex]].y
+        if (debug)
+        {
+            MouseMove, x, y
+        }
         Click %x% %y%
     }
 
