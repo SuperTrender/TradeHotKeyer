@@ -1,5 +1,9 @@
 #NoEnv
 
+;debug := true
+debug := false
+debugLogFile = "debug.log"
+
 ; FinamTrade
 finamTradeWinTitle := "FinamTrade"
 
@@ -7,32 +11,41 @@ periods_h1_d            := ["h1", "d"]
 periods_h1_h4_d_w       := ["h1", "h4", "d", "w"]
 periods_h1_h4_d_w_mn_qr := ["h1", "h4", "d", "w", "mn", "qr"]
 
-periodIndexFinamTrade := 0
-periodControlCoordsFinamTrade := {x: 460, y: 180}
-periodCellFinamTrade := {width: 55, height: 35}
-deltaHeight := 55
-periodsHoursFirstCellDeltaFinamTrade := {x: 5, y: 145}
 periodsHoursCellsFinamTrade := {h1: {row: 1, column: 1}
     , h4: {row: 1, column: 4}}
-periodsDaysFirstCellDeltaFinamTrade := {x: 5, y: 235}
 periodsDaysCellsFinamTrade := {d: {row: 1, column: 1}
     , w: {row: 1, column: 2}
     , mn: {row: 1, column: 3}
     , qr: {row: 1, column: 4}}
-periodsCoordsFinamTrade := {h1: {x: getX(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h1), y: getY(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h1)}
-    , h4: {x: getX(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h4), y: getY(periodsHoursFirstCellDeltaFinamTrade, periodsHoursCellsFinamTrade.h4)}
-    , d:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.d), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.d)}
-    , w:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.w), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.w)}
-    , mn:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.mn), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.mn)}
-    , qr:  {x: getX(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.qr), y: getY(periodsDaysFirstCellDeltaFinamTrade, periodsDaysCellsFinamTrade.qr)}}
 
-deltaFinamTrade := 40
-mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaFinamTrade
-    , y: periodControlCoordsFinamTrade.y - deltaFinamTrade}
-deltaX := 45
-height := 945
-scrollInstrumentsCoordsUpFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaX, y: periodControlCoordsFinamTrade.y}
-scrollInstrumentsCoordsDownFinamTrade := {x: periodControlCoordsFinamTrade.x - deltaX, y: periodControlCoordsFinamTrade.y + height}
+periodControlCoordsFinamTrade := {x: 520, y: 230}
+periodsHoursFirstCellCoordsFinamTrade := {x: 520, y: 470}
+periodsDaysFirstCellCoordsFinamTrade := {x: 520, y: 580}
+periodCellFinamTrade := {width: 65, height: 30}
+
+periodsCoordsFinamTrade := {h1: {x: getX(periodsHoursFirstCellCoordsFinamTrade, periodsHoursCellsFinamTrade.h1)
+        , y: getY(periodsHoursFirstCellCoordsFinamTrade, periodsHoursCellsFinamTrade.h1)}
+    , h4: {x: getX(periodsHoursFirstCellCoordsFinamTrade, periodsHoursCellsFinamTrade.h4)
+        , y: getY(periodsHoursFirstCellCoordsFinamTrade, periodsHoursCellsFinamTrade.h4)}
+    , d:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.d)
+        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.d)}
+    , w:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.w)
+        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.w)}
+    , mn:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.mn)
+        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.mn)}
+    , qr:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.qr)
+        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.qr)}}
+periodIndexFinamTrade := 0
+
+mouseMoveDeltaFinamTrade := 40
+mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - mouseMoveDeltaFinamTrade
+    , y: periodControlCoordsFinamTrade.y - mouseMoveDeltaFinamTrade}
+scrollInstrumentsDeltaX := 45
+scrollInstrumentsHeight := 945
+scrollInstrumentsCoordsUpFinamTrade := {x: periodControlCoordsFinamTrade.x - scrollInstrumentsDeltaX
+    , y: periodControlCoordsFinamTrade.y}
+scrollInstrumentsCoordsDownFinamTrade := {x: periodControlCoordsFinamTrade.x - scrollInstrumentsDeltaX
+    , y: periodControlCoordsFinamTrade.y + scrollInstrumentsHeight}
 
 ; MetaTrader
 metaTraderWinTitle := "ahk_class " + "MetaQuotes::MetaTrader::4.00"
@@ -45,10 +58,11 @@ periodsCoordsMetaTrader := {h1: {x: 540, y: 150}
     , w:  {x: 670, y: 150}}
 mouseMoveCoordsMetaTrader := {x: 430, y: 50}
 
-;debug := true
-debug := false
 pause := 300
 
+logCoords("periodControlCoordsFinamTrade", periodControlCoordsFinamTrade)
+logCoords("periodsHoursFirstCellCoordsFinamTrade", periodsHoursFirstCellCoordsFinamTrade)
+logCoords("periodsDaysFirstCellCoordsFinamTrade", periodsDaysFirstCellCoordsFinamTrade)
 logCoords(periods_h1_h4_d_w_mn_qr[1], periodsCoordsFinamTrade.h1)
 logCoords(periods_h1_h4_d_w_mn_qr[2], periodsCoordsFinamTrade.h4)
 logCoords(periods_h1_h4_d_w_mn_qr[3], periodsCoordsFinamTrade.d)
@@ -63,21 +77,21 @@ logCoords(name, period)
     {
         x :=  period.x
         y :=  period.y
-        FileAppend, %name%.x = %x% %name%.y = %y%`n, C:\Users\Administrator\Documents\debug.log
+        FileAppend, %name%.x = %x% %name%.y = %y%`n, debug.log
     }
 }
 
-getX(firstCellDelta, cell)
+getX(firstCell, cell)
 {
     global
-    x := periodControlCoordsFinamTrade.x + firstCellDelta.x + periodCellFinamTrade.width * (cell.column - 1)
+    x := firstCell.x + periodCellFinamTrade.width * (cell.column - 1)
     return x
 }
 
-getY(firstCellDelta, cell)
+getY(firstCell, cell)
 {
     global
-    y := periodControlCoordsFinamTrade.y + firstCellDelta.y + deltaHeight + periodCellFinamTrade.height * (cell.row - 1)
+    y := firstCell.y + periodCellFinamTrade.height * (cell.row - 1)
     return y
 }
 
