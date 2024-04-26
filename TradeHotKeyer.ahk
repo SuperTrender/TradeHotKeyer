@@ -40,8 +40,9 @@ periodIndexFinamTrade := 0
 mouseMoveDeltaFinamTrade := 40
 mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - mouseMoveDeltaFinamTrade
     , y: periodControlCoordsFinamTrade.y - mouseMoveDeltaFinamTrade}
+
 scrollInstrumentsDeltaX := 45
-scrollInstrumentsHeight := 945
+scrollInstrumentsHeight := 845
 scrollInstrumentsCoordsUpFinamTrade := {x: periodControlCoordsFinamTrade.x - scrollInstrumentsDeltaX
     , y: periodControlCoordsFinamTrade.y}
 scrollInstrumentsCoordsDownFinamTrade := {x: periodControlCoordsFinamTrade.x - scrollInstrumentsDeltaX
@@ -97,32 +98,55 @@ getY(firstCell, cell)
 
 #If WinActive(finamTradeWinTitle)
 
+scrollInstrumentsUp()
+{
+    global
+    x := scrollInstrumentsCoordsUpFinamTrade.x
+    y := scrollInstrumentsCoordsUpFinamTrade.y
+    scrollInstruments(x, y)
+}
+
+scrollInstrumentsDown()
+{
+    global
+    x := scrollInstrumentsCoordsDownFinamTrade.x
+    y := scrollInstrumentsCoordsDownFinamTrade.y
+    scrollInstruments(x, y)
+}
+
+scrollInstruments(x, y)
+{
+    SetSystemCursor()
+    Click %x% %y%
+    RestoreCursors()
+}
+
 Up::
-x::
 SendInput !{Up}
 return
 
 Down::
-z::
 SendInput !{Down}
 return
 
-w::
 ^!Up::
-SetSystemCursor()
-    x := scrollInstrumentsCoordsUpFinamTrade.x
-    y := scrollInstrumentsCoordsUpFinamTrade.y
-    Click %x% %y%
-RestoreCursors()
+w::
+scrollInstrumentsUp()
 return
 
-q::
 ^!Down::
-SetSystemCursor()
-    x := scrollInstrumentsCoordsDownFinamTrade.x
-    y := scrollInstrumentsCoordsDownFinamTrade.y
-    Click %x% %y%
-RestoreCursors()
+q::
+scrollInstrumentsDown()
+return
+
+x::
+scrollInstrumentsUp()
+scrollInstrumentsUp()
+return
+
+z::
+scrollInstrumentsDown()
+scrollInstrumentsDown()
 return
 
 #If WinExist(finamTradeWinTitle)
