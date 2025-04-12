@@ -61,6 +61,13 @@ mouseMoveCoordsMetaTrader := {x: 430, y: 50}
 
 pause := 300
 
+chartIndex := 1
+chartFirstIndex := 1
+chartLastIndex := 5
+chartX := 20
+chartY := 1070
+chartDelta := 130
+
 logCoords("periodControlCoordsFinamTrade", periodControlCoordsFinamTrade)
 logCoords("periodsHoursFirstCellCoordsFinamTrade", periodsHoursFirstCellCoordsFinamTrade)
 logCoords("periodsDaysFirstCellCoordsFinamTrade", periodsDaysFirstCellCoordsFinamTrade)
@@ -213,6 +220,28 @@ return
     WinActivate
     trader := new MetaTrader(periodIndexMetaTrader, periods_h1_d, true)
     periodIndexMetaTrader := trader.changePeriod()
+return
+
+^+Delete::
+    WinActivate
+    chartIndex--
+    if (chartIndex < chartFirstIndex)
+    {
+        chartIndex := chartLastIndex
+    }
+    x := chartX + chartDelta * (chartIndex - 1)
+    Click %x% %chartY%
+return
+
+^+Insert::
+    WinActivate
+    chartIndex++
+    if (chartIndex > chartLastIndex)
+    {
+        chartIndex := chartFirstIndex
+    }
+    x := chartX + chartDelta * (chartIndex - 1)
+    Click %x% %chartY%
 return
 
 #If WinActive(finamTradeWinTitle) or WinActive(metaTraderWinTitle)
