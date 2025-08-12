@@ -58,7 +58,7 @@ mouseMoveDeltaFinamTrade := 40
 mouseMoveCoordsFinamTrade := {x: periodControlCoordsFinamTrade.x - mouseMoveDeltaFinamTrade
     , y: periodControlCoordsFinamTrade.y - mouseMoveDeltaFinamTrade}
 
-scrollInstrumentsDeltaX := 45
+scrollInstrumentsDeltaX := 55
 scrollInstrumentsHeight := 845
 scrollInstrumentsCoordsUpFinamTrade := {x: periodControlCoordsFinamTrade.x - scrollInstrumentsDeltaX
     , y: periodControlCoordsFinamTrade.y}
