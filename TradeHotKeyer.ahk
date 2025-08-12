@@ -18,9 +18,9 @@ periodsDaysCellsFinamTrade := {d: {row: 1, column: 1}
     , mn: {row: 1, column: 3}
     , qr: {row: 1, column: 4}}
 
-periodControlCoordsFinamTrade := {x: 520, y: 230}
-periodsHoursFirstCellCoordsFinamTrade := {x: 520, y: 470}
-periodsDaysFirstCellCoordsFinamTrade := {x: 520, y: 580}
+periodControlCoordsFinamTrade := {x: 530, y: 270}
+periodsHoursFirstCellCoordsFinamTrade := {x: 530, y: 510}
+periodsDaysFirstCellCoordsFinamTrade := {x: 530, y: 620}
 periodCellFinamTrade := {width: 65, height: 30}
 
 periodsCoordsFinamTrade := {h1: {x: getX(periodsHoursFirstCellCoordsFinamTrade, periodsHoursCellsFinamTrade.h1)
