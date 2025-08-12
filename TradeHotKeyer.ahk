@@ -9,8 +9,12 @@ finamTradeWinTitle := "FinamTrade"
 
 periods_h1_d            := ["h1", "d"]
 periods_h1_h4_d_w       := ["h1", "h4", "d", "w"]
-periods_h1_h4_d_w_mn_qr := ["h1", "h4", "d", "w", "mn", "qr"]
+periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30 := ["h1", "h4", "d", "w", "mn", "qr", "m1", "m5", "m15", "m30"]
 
+periodsMinutesCellsFinamTrade := {m1: {row: 1, column: 1}
+    , m5: {row: 2, column: 1}
+    , m15: {row: 3, column: 1}
+    , m30: {row: 3, column: 3}}
 periodsHoursCellsFinamTrade := {h1: {row: 1, column: 1}
     , h4: {row: 1, column: 4}}
 periodsDaysCellsFinamTrade := {d: {row: 1, column: 1}
@@ -19,6 +23,7 @@ periodsDaysCellsFinamTrade := {d: {row: 1, column: 1}
     , qr: {row: 1, column: 4}}
 
 periodControlCoordsFinamTrade := {x: 530, y: 270}
+periodsMinutesFirstCellCoordsFinamTrade := {x: 530, y: 370}
 periodsHoursFirstCellCoordsFinamTrade := {x: 530, y: 510}
 periodsDaysFirstCellCoordsFinamTrade := {x: 530, y: 620}
 periodCellFinamTrade := {width: 65, height: 30}
@@ -34,7 +39,19 @@ periodsCoordsFinamTrade := {h1: {x: getX(periodsHoursFirstCellCoordsFinamTrade, 
     , mn:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.mn)
         , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.mn)}
     , qr:  {x: getX(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.qr)
-        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.qr)}}
+        , y: getY(periodsDaysFirstCellCoordsFinamTrade, periodsDaysCellsFinamTrade.qr)}
+    , m1: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)}
+    , m1: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)}
+    , m1: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m1)}
+    , m5: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m5)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m5)}
+    , m15: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m15)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m15)}
+    , m30: {x: getX(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m30)
+        , y: getY(periodsMinutesFirstCellCoordsFinamTrade, periodsMinutesCellsFinamTrade.m30)}}
 periodIndexFinamTrade := 0
 
 mouseMoveDeltaFinamTrade := 40
@@ -71,12 +88,16 @@ chartDelta := 130
 logCoords("periodControlCoordsFinamTrade", periodControlCoordsFinamTrade)
 logCoords("periodsHoursFirstCellCoordsFinamTrade", periodsHoursFirstCellCoordsFinamTrade)
 logCoords("periodsDaysFirstCellCoordsFinamTrade", periodsDaysFirstCellCoordsFinamTrade)
-logCoords(periods_h1_h4_d_w_mn_qr[1], periodsCoordsFinamTrade.h1)
-logCoords(periods_h1_h4_d_w_mn_qr[2], periodsCoordsFinamTrade.h4)
-logCoords(periods_h1_h4_d_w_mn_qr[3], periodsCoordsFinamTrade.d)
-logCoords(periods_h1_h4_d_w_mn_qr[4], periodsCoordsFinamTrade.w)
-logCoords(periods_h1_h4_d_w_mn_qr[5], periodsCoordsFinamTrade.mn)
-logCoords(periods_h1_h4_d_w_mn_qr[6], periodsCoordsFinamTrade.qr)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[1], periodsCoordsFinamTrade.h1)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[2], periodsCoordsFinamTrade.h4)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[3], periodsCoordsFinamTrade.d)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[4], periodsCoordsFinamTrade.w)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[5], periodsCoordsFinamTrade.mn)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[6], periodsCoordsFinamTrade.qr)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[7], periodsCoordsFinamTrade.m1)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[8], periodsCoordsFinamTrade.m5)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[9], periodsCoordsFinamTrade.m15)
+logCoords(periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30[10], periodsCoordsFinamTrade.m30)
 
 logCoords(name, period)
 {
@@ -194,6 +215,30 @@ return
     choosePeriod(6)
 return
 
+7::
+!7::
+    WinActivate
+    choosePeriod(7)
+return
+
+8::
+!8::
+    WinActivate
+    choosePeriod(8)
+return
+
+9::
+!9::
+    WinActivate
+    choosePeriod(9)
+return
+
+0::
+!0::
+    WinActivate
+    choosePeriod(10)
+return
+
 Left::
 !Left::
     WinActivate
@@ -259,7 +304,7 @@ choosePeriod(periodIndex)
     global
     if (WinActive(finamTradeWinTitle))
     {
-        trader := new FinamTrade(periodIndex, periods_h1_h4_d_w_mn_qr, true)
+        trader := new FinamTrade(periodIndex, periods_h1_h4_d_w_mn_qr_m1_m5_m15_m30, true)
         periodIndexFinamTrade := trader.choosePeriod()
     }
     else if (WinActive(metaTraderWinTitle))
