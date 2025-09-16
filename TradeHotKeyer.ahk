@@ -85,6 +85,8 @@ chartX := 20
 chartY := 1070
 chartDelta := 130
 
+SetTitleMatchMode 2
+
 logCoords("periodControlCoordsFinamTrade", periodControlCoordsFinamTrade)
 logCoords("periodsHoursFirstCellCoordsFinamTrade", periodsHoursFirstCellCoordsFinamTrade)
 logCoords("periodsDaysFirstCellCoordsFinamTrade", periodsDaysFirstCellCoordsFinamTrade)
